@@ -3,9 +3,8 @@ import csv
 
 Total_Months=[]
 Profit_Sum=[]
-Change_Profit=[]
 Earnings_Total=0
-Earnings_Change=0
+#Earnings_Change=0
 
 
 # Path to collect data from the Resources folder
@@ -24,18 +23,23 @@ with open(budget) as csvfile:
         Earnings= row[1]
         Total_Months.append(Date)
         Profit_Sum.append(Earnings)
-        Change_Profit.append(Earnings)
+        #Change_Profit.append(Earnings)
 
 print(f'Financial Analysis')
 print(f'------------------------')
 
 Months=len(Total_Months)
-
 print(f"Total Months: " + str(Months))
+
 for i in range(0,len(Profit_Sum)):
     Earnings_Total=Earnings_Total+int(Profit_Sum[i])
 print(f'Total: ${Earnings_Total}')    
 
+for i in range(len(Profit_Sum)-1):
+    Change_Profit=[float(Profit_Sum[i+1])-float(Profit_Sum[i])]
+    
+
+#print(f'Average Change: ${Earnings_Change}')
 
 
 
