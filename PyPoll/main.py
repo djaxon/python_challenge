@@ -2,6 +2,8 @@
 import os
 import csv
 
+
+
 #identify variables and lists
 Votes=[]
 List=[]
@@ -33,12 +35,30 @@ print(f"Total Votes: " + str(TotalVotes))
 
 #create a set from candidate list
 
-Consol_Candidate=list(set(List))
-print(Consol_Candidate)
+# Consol_Candidate=list(set(List))
+# print(Consol_Candidate)
+
+from collections import Counter
+a = List
+c = Counter(a)
+print(c)
+
+
+
+# candis = dict()
+# summaryList=Consol_Candidate
+# for i in summaryList:
+#     for k in range(0,List[i]):
+#         candis.setdefault(sum(k),[]).append(i)
+# print(candis)
+
+#for i in range(0,len(List)):
+    
+
 
 
 #create a dictionary of the candidate list
-
+#dict(Consol)
 
 
 #add number of votes won and % of vote received to dictionary
