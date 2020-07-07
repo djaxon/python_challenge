@@ -4,6 +4,8 @@ import csv
 Total_Months=[]
 Profit_Sum=[]
 Earnings_Total=0
+Change=[]
+Average_Total=0
 #Earnings_Change=0
 
 
@@ -23,6 +25,7 @@ with open(budget) as csvfile:
         Earnings= row[1]
         Total_Months.append(Date)
         Profit_Sum.append(Earnings)
+        Change.append(Earnings)
         #Change_Profit.append(Earnings)
 
 print(f'Financial Analysis')
@@ -35,13 +38,36 @@ for i in range(0,len(Profit_Sum)):
     Earnings_Total=Earnings_Total+int(Profit_Sum[i])
 print(f'Total: ${Earnings_Total}')    
 
-for i in range(len(Profit_Sum)-1):
-    Change_Profit=[float(Profit_Sum[i+1])-float(Profit_Sum[i])]
+Change=[float(Profit_Sum[i+1])-float(Profit_Sum[i]) for i in range(len(Profit_Sum)-1)]
+Average_Total=sum(Change)/int(len(Change))
+
+print(f'Average Change: ${Average_Total}')
+
+
+max_change=max(Change)
+max_index=(Change.index(max_change)+1)
+max_date=Total_Months[max_index]
+min_change=min(Change)
+min_index=(Change.index(min_change)+1)
+min_date=Total_Months[min_index]
+print(f'Greatest Increase in Profits: {max_date} (${max_change})')
+print(f'Greatest Decrease in Profits: {min_date} (${min_change})')
+
+# Specify the file to write to
+output = os.path.join("analysis", "budget_output.csv")
+
+# Open the file using "write" mode. Specify the variable to hold the contents
+with open(output, 'w') as csvfile:
+
+    # Initialize csv.writer
+    csvwriter = csv.writer(csvfile, delimiter=',')
+
+    # Write the first row (column headers)
+    csvwriter.writerow(['Financial Analysis'])
+    csvwriter.writerow(['------------------'])
+    csvwriter.writerow([f'Total Months: ' + str(Months)])
+    csvwriter.writerow([f'Total: ${Earnings_Total}'])
+    csvwriter.writerow([f'Average Change: ${Average_Total}'])
+    csvwriter.writerow([f'Greatest Increase in Profits: {max_date} (${max_change})'])
+    csvwriter.writerow([f'Greatest Decrease in Profits: {min_date} (${min_change})'])
     
-
-#print(f'Average Change: ${Earnings_Change}')
-
-
-
-
-
