@@ -2,8 +2,6 @@
 import os
 import csv
 
-
-
 #identify variables and lists
 Votes=[]
 List=[]
@@ -27,48 +25,45 @@ with open(election) as csvfile:
         List.append(Candidate)
 
 print(f'Election Results')
+
 print(f'------------------------')
 
 #sum votes
 TotalVotes=len(Votes)
 print(f"Total Votes: " + str(TotalVotes))
 
-#create a set from candidate list
+print(f'------------------------')
 
-# Consol_Candidate=list(set(List))
-# print(Consol_Candidate)
-
+#create a dictionary from candidate list
 from collections import Counter
-a = List
-c = Counter(a)
-print(c)
+a= List
+d= dict(Counter(a))
 
-
-
-# candis = dict()
-# summaryList=Consol_Candidate
-# for i in summaryList:
-#     for k in range(0,List[i]):
-#         candis.setdefault(sum(k),[]).append(i)
-# print(candis)
-
-#for i in range(0,len(List)):
+#loop through list to sum unique names (candidates) to get total numbers (votes)
+for names, numbers in d.items():
+    print(names,":", round(numbers/TotalVotes*100,3), "% (", numbers, ")")
     
 
+#find winner
+Winner=max(set(List),key=List.count)
+print(f'------------------------')
+print(f'Winner: ' + str(Winner))
 
+# Specify the file to write to
+output = os.path.join("analysis", "election_output.csv")
 
-#create a dictionary of the candidate list
-#dict(Consol)
+# Open the file using "write" mode. Specify the variable to hold the contents
+with open(output, 'w') as csvfile:
 
+    # Initialize csv.writer
+    csvwriter = csv.writer(csvfile, delimiter=',')
 
-#add number of votes won and % of vote received to dictionary
-
-
-
-
-#if statement for winner
-
-
-
-
-
+    # Write the first row (column headers)
+    csvwriter.writerow([f'Election Results'])
+    csvwriter.writerow([f'------------------------'])
+    csvwriter.writerow([f"Total Votes: " + str(TotalVotes)])
+    csvwriter.writerow([f'------------------------'])
+    for names, numbers in d.items():
+        csvwriter.writerow([names + ": " + str(round(numbers/TotalVotes*100,3)) + "% (" + str(numbers) + ")"])
+    csvwriter.writerow([f'------------------------'])
+    csvwriter.writerow([f'Winner: ' + str(Winner)])
