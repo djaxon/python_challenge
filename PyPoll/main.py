@@ -50,20 +50,18 @@ print(f'------------------------')
 print(f'Winner: ' + str(Winner))
 
 # Specify the file to write to
-output = os.path.join("analysis", "election_output.csv")
+output = os.path.join("analysis", "election_output.txt")
 
 # Open the file using "write" mode. Specify the variable to hold the contents
-with open(output, 'w') as csvfile:
+with open(output, 'w') as txtfile:
 
-    # Initialize csv.writer
-    csvwriter = csv.writer(csvfile, delimiter=',')
-
+    
     # Write the first row (column headers)
-    csvwriter.writerow([f'Election Results'])
-    csvwriter.writerow([f'------------------------'])
-    csvwriter.writerow([f"Total Votes: " + str(TotalVotes)])
-    csvwriter.writerow([f'------------------------'])
+    txtfile.writelines([f'Election Results\n'])
+    txtfile.writelines([f'------------------------\n'])
+    txtfile.writelines([f"Total Votes: " + str(TotalVotes)])
+    txtfile.writelines([f'\n------------------------\n'])
     for names, numbers in d.items():
-        csvwriter.writerow([names + ": " + str(round(numbers/TotalVotes*100,3)) + "% (" + str(numbers) + ")"])
-    csvwriter.writerow([f'------------------------'])
-    csvwriter.writerow([f'Winner: ' + str(Winner)])
+        txtfile.writelines([names + ": " + str(round(numbers/TotalVotes*100,3)) + "% (" + str(numbers) + ")\n"])
+    txtfile.writelines([f'\n------------------------\n'])
+    txtfile.writelines([f'Winner: ' + str(Winner)])

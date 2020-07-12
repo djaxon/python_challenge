@@ -54,20 +54,16 @@ print(f'Greatest Increase in Profits: {max_date} (${max_change})')
 print(f'Greatest Decrease in Profits: {min_date} (${min_change})')
 
 # Specify the file to write to
-output = os.path.join("analysis", "budget_output.csv")
+output = os.path.join("analysis", "budget_output.txt")
 
 # Open the file using "write" mode. Specify the variable to hold the contents
-with open(output, 'w') as csvfile:
-
-    # Initialize csv.writer
-    csvwriter = csv.writer(csvfile, delimiter=',')
-
+with open(output, 'w') as txtfile:  
     # Write the first row (column headers)
-    csvwriter.writerow(['Financial Analysis'])
-    csvwriter.writerow(['------------------'])
-    csvwriter.writerow([f'Total Months: ' + str(Months)])
-    csvwriter.writerow([f'Total: ${Earnings_Total}'])
-    csvwriter.writerow([f'Average Change: ${Average_Total}'])
-    csvwriter.writerow([f'Greatest Increase in Profits: {max_date} (${max_change})'])
-    csvwriter.writerow([f'Greatest Decrease in Profits: {min_date} (${min_change})'])
+    txtfile.writelines(['Financial Analysis\n'])
+    txtfile.writelines(['------------------\n'])
+    txtfile.writelines([f'Total Months: ' + str(Months)])
+    txtfile.writelines([f'\nTotal: ${Earnings_Total}\n'])
+    txtfile.writelines([f'Average Change: ${Average_Total}\n'])
+    txtfile.writelines([f'Greatest Increase in Profits: {max_date} (${max_change})\n'])
+    txtfile.writelines([f'Greatest Decrease in Profits: {min_date} (${min_change})\n'])
     
